@@ -115,3 +115,123 @@ Real-price metrics are easier to interpret in business terms.
 # Best Model
 
 **LightGBM** achieved the best performance:
+
+
+
+# Stress Test Evaluation (Group Split)
+
+To evaluate how well the model generalizes to **unseen car groups**, a stress test was performed using a **GroupShuffleSplit** strategy.
+
+Instead of random splits, vehicles were grouped by:
+
+
+
+This ensures that **specific brand–model combinations appearing in training are not present in the test set**, simulating a more realistic scenario where the model encounters unseen vehicle types.
+
+---
+
+# Why This Stress Test Matters
+
+Standard K-Fold validation may produce overly optimistic metrics because:
+
+- identical or very similar cars can appear in both train and validation folds
+- models can implicitly memorize price patterns
+
+Group-based splitting forces the model to **generalize to unseen vehicle groups**, making the evaluation significantly more realistic.
+
+---
+
+# Dataset Split
+
+| Metric | Value |
+|------|------|
+| Training samples | 84,677 |
+| Test samples | 21,590 |
+| Training groups | 157 |
+| Test groups | 40 |
+
+Each group represents a unique **brand–model combination**.
+
+---
+
+# Stress Test Results
+
+| Model | R² (log) | RMSE (log) | MAE (log) | R² (£) | RMSE (£) | MAE (£) |
+|------|---------|-----------|----------|--------|----------|---------|
+| CatBoost | **0.836** | 0.226 | 0.179 | **0.849** | **3663** | **2614** |
+| XGBoost | 0.825 | 0.234 | 0.183 | 0.833 | 3861 | 2692 |
+| LightGBM | 0.823 | 0.235 | 0.185 | 0.814 | 4065 | 2750 |
+| RandomForest | 0.825 | 0.234 | 0.186 | 0.813 | 4080 | 2749 |
+| DecisionTree | 0.762 | 0.272 | 0.214 | 0.746 | 4752 | 3172 |
+
+---
+
+# Key Observations
+
+### 1️⃣ Performance drops compared to standard CV
+
+In regular cross-validation the best model achieved:
+R² ≈ 0.96
+RMSE ≈ £1841
+
+
+This drop is expected because the model must now **predict prices for unseen brand–model combinations**.
+
+---
+
+### 2️⃣ CatBoost generalizes best
+
+CatBoost achieved the best performance in the stress test:
+R²_real ≈ 0.849
+RMSE_real ≈ £3663
+
+
+This suggests it handles **categorical relationships and unseen groups better** than the other models.
+
+---
+
+### 3️⃣ Tree ensembles still perform well
+
+Even under strict evaluation:
+
+- Gradient boosting models remain strongest
+- Single decision trees degrade significantly
+
+---
+
+# Interpretation
+
+This stress test shows that the model:
+
+- learns **general price patterns**
+- not just memorization of specific vehicles
+
+However, predicting prices for **completely unseen vehicle groups** remains significantly harder.
+
+---
+
+# Takeaway
+
+Two evaluation perspectives are important:
+
+| Evaluation | Purpose |
+|------|------|
+| Standard Cross Validation | Overall predictive performance |
+| Group Stress Test | Real-world generalization |
+
+Using both provides a **more honest estimate of model robustness**.
+
+---
+
+# Next Improvements
+
+Possible directions for improving generalization:
+
+- add **brand-level statistical features**
+- introduce **hierarchical encoding**
+- use **target encoding for categorical features**
+- increase dataset diversity
+- incorporate **market-level signals**
+
+---
+
