@@ -133,3 +133,105 @@ The workflow follows a **structured six-stage machine learning pipeline**, progr
 
 ---
 
+---
+
+# 📊 Dataset & Feature Engineering
+
+## 📂 Dataset
+
+| Attribute              | Description                                                      |
+| ---------------------- | ---------------------------------------------------------------- |
+| 📍 **Source**          | Kaggle — Used Car Dataset (Ford & Mercedes + multi-manufacturer) |
+| 📊 **Size**            | ~100,000 observations                                            |
+| 🧾 **Raw Variables**   | 10                                                               |
+| 🚘 **Brands**          | Audi, BMW, Ford, Mercedes, Toyota, Vauxhall, VW + others         |
+| 🎯 **Target Variable** | `price (£)`                                                      |
+
+To stabilise variance and improve model learning, the target variable was **log-transformed**:
+
+```python
+log_price = log1p(price)
+```
+
+---
+
+## 🧠 Engineered Features
+
+Domain-informed features were created to better capture **vehicle depreciation patterns and usage intensity**.
+
+```python
+vehicle_age    = current_year - year
+CAE            = log1p(vehicle_age)           # Compressed Age Effect
+log_mileage    = log1p(mileage)
+km_per_year    = mileage / (vehicle_age + 1)  # Usage intensity
+mileage_age_interaction = log_mileage * CAE   # Combined depreciation
+high_mileage   = 1 if mileage > 100000
+large_engine   = 1 if engineSize >= 2.0
+auto_large_eng = 1 if Automatic & engineSize >= 2.0
+```
+
+These transformations help capture **nonlinear depreciation effects and interactions between vehicle age, mileage, and engine size**.
+
+---
+
+## 🔗 Feature Correlation Structure
+
+**Figure 2 — Feature correlation heatmap**
+
+![](images/Frame9.png)
+
+---
+
+**Figure 3 — Pearson correlation matrix**
+
+![](images/Main2.png)
+---
+
+# 🔧 Model Pipeline Architecture
+
+The **scikit-learn `Pipeline`** encapsulates all preprocessing within the model to **prevent data leakage during cross-validation**.
+
+Separate preprocessing branches are used for **numerical and categorical features** before feeding into the final model.
+
+**Figure 4 — Model pipeline structure**
+
+![](images/Frame11.png)
+
+This architecture ensures **reproducible preprocessing across training and validation folds**.
+
+---
+
+## ⚙️ LightGBM Hyperparameters
+
+```python
+LGBMRegressor(
+    n_estimators=1200,
+    learning_rate=0.03,
+    num_leaves=127,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    reg_lambda=1.0,
+    random_state=42
+)
+```
+
+These parameters were tuned to balance **model complexity, generalisation performance, and training stability**.
+
+---
+
+# 📈 Results
+
+## 5-Fold Cross-Validation Performance
+
+| Model          | R² (Real)  | RMSE (£)   | MAE (£)    | R² (Log)   |
+| -------------- | ---------- | ---------- | ---------- | ---------- |
+| ✅ **LightGBM** | **0.9643** | **£1,841** | **£1,092** | **0.9690** |
+| XGBoost        | 0.9616     | £1,908     | £1,153     | 0.9674     |
+| CatBoost       | 0.9607     | £1,930     | £1,167     | 0.9674     |
+| Random Forest  | 0.9608     | £1,930     | £1,135     | 0.9632     |
+| Decision Tree  | 0.9393     | £2,400     | £1,388     | 0.9404     |
+
+🏆 **LightGBM achieved the best overall performance**, delivering the highest R² and lowest prediction errors across evaluation metrics.
+
+---
+
