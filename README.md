@@ -185,6 +185,7 @@ These transformations help capture **nonlinear depreciation effects and interact
 **Figure 3 — Pearson correlation matrix**
 
 ![](images/Main2.png)
+
 ---
 
 # 🔧 Model Pipeline Architecture
