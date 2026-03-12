@@ -126,7 +126,7 @@ To **build, evaluate, and deploy an accurate and interpretable machine learning 
 
 The workflow follows a **structured six-stage machine learning pipeline**, progressing from raw data ingestion to final model evaluation.
 
-![](images/Frame 1.png)
+![](images/Main1.png)
 
 **Figure 1 — End-to-end project pipeline:**
 *Raw Data → Target Cleaning → Feature Engineering → Imputation → Scaling/Encoding → Model Testing*
