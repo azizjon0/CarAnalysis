@@ -196,7 +196,7 @@ Separate preprocessing branches are used for **numerical and categorical feature
 
 **Figure 4 — Model pipeline structure**
 
-![](Images/Frame11.png)
+![](Images/Frame12.png)
 
 This architecture ensures **reproducible preprocessing across training and validation folds**.
 
