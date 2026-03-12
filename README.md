@@ -236,3 +236,195 @@ These parameters were tuned to balance **model complexity, generalisation perfor
 
 ---
 
+![](Images/Frame8.png)
+
+---
+
+# 📊 Model Accuracy Comparison (Stress Test)
+
+**Figure 5 — R² performance under out-of-distribution testing using `GroupShuffleSplit` by `brand_model`.**
+
+
+
+---
+
+# 📈 Calibration (Reliability) Analysis
+
+**Figure 6 — Calibration plot:**
+
+![](Images/Frame10.png)
+
+Key observations:
+
+* All **ensemble models track the ideal 45° line closely up to ~£35,000**, covering the majority of listings.
+* **LightGBM shows the most stable calibration** across market segments.
+* Above **£35,000**, all models begin to **systematically underestimate prices**.
+
+This behaviour is attributed to **data sparsity in high-value vehicles**, rather than a deficiency of the learning algorithms.
+
+---
+
+# 🔍 Explainability — SHAP Analysis
+
+Model interpretability is provided using **SHAP (SHapley Additive exPlanations)** with the **TreeSHAP algorithm** applied to the trained LightGBM model.
+
+Two complementary explanation types are generated:
+
+| Type                      | Purpose                                                           |
+| ------------------------- | ----------------------------------------------------------------- |
+| 🌍 **Global Explanation** | Beeswarm plot showing feature influence across the entire dataset |
+| 🎯 **Local Explanation**  | Waterfall plot explaining a single prediction                     |
+
+---
+
+## 🧠 Key SHAP Findings
+
+* 🔧 **engineSize** — strongest positive price driver
+  Large engines command significant premiums (SHAP values up to **+0.75**).
+
+* ⏳ **CAE (vehicle age)** — dominant negative driver
+  Older vehicles strongly cluster toward negative contributions.
+
+* 📉 **mileage_age_interaction**
+  Reinforces depreciation effects beyond either variable individually.
+
+* 🚘 **Premium Brands (Audi, BMW, Mercedes)**
+  Consistent positive SHAP contributions reflecting **brand premium effects**.
+
+* 💰 **brand_vauxhall**
+  Associated with **below-average predicted resale values**.
+
+* ⚙️ **transmission_Manual**
+  Displays **bidirectional effects**, depending on vehicle segment.
+
+---
+
+# 🕵️ Deal Detection System (Concept)
+
+Beyond prediction, the system proposes a **deal detection framework** to identify listings that may represent good buying opportunities.
+
+**Figure 7 — Deal Detection System Architecture**
+
+![](Images/Frame11.png)
+
+### Algorithm Logic
+
+```python
+if actual_price < predicted_price:
+    label = "potentially good price"
+
+elif actual_price ≈ predicted_price:
+    label = "fair market price"
+
+else:
+    label = "overpriced"
+```
+
+This concept transforms the model from **pure prediction** into a **decision-support tool for buyers**.
+
+---
+
+# 🚀 Quick Start
+
+## Prerequisites
+
+* Python **3.10+**
+* `pip` or `conda`
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/yourusername/used-car-price-prediction.git
+cd used-car-price-prediction
+pip install -r requirements.txt
+```
+
+---
+
+## Run the Streamlit App
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## Train the Model
+
+```bash
+python train.py
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+used-car-price-prediction/
+│
+├── data/                  # Raw CSV files from Kaggle
+├── notebooks/             # EDA and model development notebooks
+│
+├── src/
+│   ├── data_loader.py     # Multi-file CSV loading + schema alignment
+│   ├── feature_eng.py     # fe_transform() — feature engineering
+│   ├── train.py           # Training pipeline + K-Fold cross-validation
+│   └── evaluate.py        # Calibration, SHAP, stress testing
+│
+├── app.py                 # Streamlit interactive demo
+├── models/                # Serialized trained pipelines (joblib)
+└── requirements.txt
+```
+
+---
+
+# 📚 Theoretical Background
+
+The modelling framework draws on established economic and machine learning theory.
+
+### Hedonic Pricing
+
+Based on **Rosen (1974)**, vehicle prices are modelled as the sum of implicit values of their attributes.
+
+### Information Asymmetry
+
+Inspired by **Akerlof (1970)**, the system aims to reduce information gaps between buyers and sellers.
+
+### Depreciation Dynamics
+
+Non-linear depreciation patterns identified in **Hulten & Wykoff (1981)** are incorporated through the **Compressed Age Effect (CAE)** feature.
+
+### Explainable AI
+
+Model interpretability is implemented using **SHAP (Lundberg & Lee, 2017)**, which satisfies:
+
+* Local accuracy
+* Missingness
+* Consistency
+
+TreeSHAP provides **polynomial-time computation**, making it feasible for large datasets.
+
+---
+
+# ✅ Key Findings
+
+* 🏆 **LightGBM achieved the best predictive performance**
+  **R²_real = 0.9643**, **MAE_real = £1,092** under 5-fold cross-validation.
+
+* 🧪 **Out-of-distribution stress test:**
+  LightGBM achieved **R²_real = 0.8021** using `GroupShuffleSplit` by `brand_model`.
+
+* 🔧 **Engine size** is the most influential continuous predictor.
+
+* ⏳ **Vehicle age (CAE)** consistently acts as the strongest negative price driver.
+
+* 📉 All ensemble models **underestimate prices above £35,000** due to sparse training data.
+
+* 🔗 The **mileage_age_interaction** feature adds predictive power beyond individual variables.
+
+* 🚘 **Premium brand effects** (Audi, BMW, Mercedes) are clearly visible and consistent with residual value literature.
+
+---
+
