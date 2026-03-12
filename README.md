@@ -10,6 +10,8 @@
 
 ---
 
+![](Images/Cover.png)
+
 ## 🛠 Tech Stack
 
 | Category           | Tools         |
