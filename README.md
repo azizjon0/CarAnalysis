@@ -58,3 +58,78 @@ Explainability is integrated using **SHAP** as a **core component of the model p
 ### 🖥 Interactive ML Prototype
 
 A functional **Streamlit application** allows real-time predictions with interpretable explanations, demonstrating practical deployment of the model.
+
+---
+
+## 🎯 Project Aims & Objectives
+
+### 🎯 Primary Aim
+
+To **build, evaluate, and deploy an accurate and interpretable machine learning model** for predicting **UK used car prices**, demonstrating that **predictive accuracy and explainability can be jointly optimised**.
+
+---
+
+### 📌 Objectives
+
+* 📂 **Data Integration**
+  Collect and integrate **~100,000 used car listings** from multiple manufacturer CSV files into a unified dataset.
+
+* 🔎 **Exploratory Data Analysis (EDA)**
+  Perform comprehensive EDA to identify **distribution patterns, outliers, and feature relationships**.
+
+* 🧠 **Feature Engineering**
+  Engineer domain-relevant variables including:
+
+  * Vehicle age
+  * Log-transformed mileage
+  * Feature interaction terms
+  * Binary market-segment indicators
+
+* 🤖 **Model Training & Validation**
+  Train and cross-validate five machine learning models:
+
+  * LightGBM
+  * XGBoost
+  * CatBoost
+  * Random Forest
+  * Decision Tree
+
+* 📊 **Model Selection**
+  Select the best-performing model using evaluation metrics:
+
+  | Metric | Purpose                  |
+  | ------ | ------------------------ |
+  | R²     | Variance explained       |
+  | RMSE   | Error magnitude          |
+  | MAE    | Average prediction error |
+
+  Evaluation is performed on both **log-price and real-price scales**.
+
+* 🔍 **Model Explainability**
+  Compute **SHAP values** to generate:
+
+  * Global explanations (**beeswarm plots**)
+  * Local explanations (**waterfall plots**)
+
+* 🧪 **Out-of-Distribution Stress Testing**
+  Apply **GroupShuffleSplit by `brand_model`** to evaluate generalisation to unseen vehicle types.
+
+* 🌐 **Prototype Deployment**
+  Deploy a **Streamlit web application** that returns:
+
+  * Predicted resale price
+  * SHAP waterfall explanation of the prediction
+
+---
+
+## ⚙️ Project Pipeline
+
+The workflow follows a **structured six-stage machine learning pipeline**, progressing from raw data ingestion to final model evaluation.
+
+![](images/Frame 1.png)
+
+**Figure 1 — End-to-end project pipeline:**
+*Raw Data → Target Cleaning → Feature Engineering → Imputation → Scaling/Encoding → Model Testing*
+
+---
+
