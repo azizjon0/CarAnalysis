@@ -178,13 +178,13 @@ These transformations help capture **nonlinear depreciation effects and interact
 
 **Figure 2 — Feature correlation heatmap**
 
-![](images/Frame9.png)
+![](Images/Frame9.png)
 
 ---
 
 **Figure 3 — Pearson correlation matrix**
 
-![](images/Main2.png)
+![](Images/Main2.png)
 
 ---
 
@@ -196,7 +196,7 @@ Separate preprocessing branches are used for **numerical and categorical feature
 
 **Figure 4 — Model pipeline structure**
 
-![](images/Frame11.png)
+![](Images/Frame11.png)
 
 This architecture ensures **reproducible preprocessing across training and validation folds**.
 
