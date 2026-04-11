@@ -6,7 +6,7 @@
 ---
 
 ## Overview
-![Model](../Images/Frame.png)
+![Model](../Images/Steamlit.png)
 
 Predicts used car prices based on:
 
