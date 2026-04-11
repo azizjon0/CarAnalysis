@@ -361,25 +361,6 @@ python train.py
 
 ---
 
-# 📁 Project Structure
-
-```text
-used-car-price-prediction/
-│
-├── data/                  # Raw CSV files from Kaggle
-├── notebooks/             # EDA and model development notebooks
-│
-├── src/
-│   ├── data_loader.py     # Multi-file CSV loading + schema alignment
-│   ├── feature_eng.py     # fe_transform() — feature engineering
-│   ├── train.py           # Training pipeline + K-Fold cross-validation
-│   └── evaluate.py        # Calibration, SHAP, stress testing
-│
-├── app.py                 # Streamlit interactive demo
-├── models/                # Serialized trained pipelines (joblib)
-└── requirements.txt
-```
-
 ---
 
 # 📚 Theoretical Background
