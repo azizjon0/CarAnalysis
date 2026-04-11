@@ -6,7 +6,7 @@
 ---
 
 ## Overview
-![](Images/Frame.png)
+![Model](../Images/Frame.png)
 
 Predicts used car prices based on:
 
