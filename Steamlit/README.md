@@ -74,5 +74,6 @@ docker run -p 8501:8501 car-price-app
 ```
 
 ### 4. Open the app
+```bash
 http://localhost:8501
-
+```
