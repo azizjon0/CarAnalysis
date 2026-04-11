@@ -1,11 +1,11 @@
-# 🚀 Car Price Predictor — UK Market
+# Car Price Predictor — UK Market
 
 > End-to-end machine learning system for predicting used car prices in the UK market.  
 > Combines data preprocessing, feature engineering, model training, and deployment via Streamlit and Docker.
 
 ---
 
-## 📊 Overview
+## Overview
 
 Predicts used car prices based on:
 
@@ -22,7 +22,7 @@ Predicts used car prices based on:
 
 ---
 
-## 🧠 Model & Performance
+## Model & Performance
 
 | Property | Detail |
 |---|---|
@@ -39,13 +39,13 @@ Predicts used car prices based on:
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 `Python` · `pandas` · `numpy` · `scikit-learn` · `lightgbm` · `shap` · `streamlit` · `Docker`
 
 ---
 
-## 📦 Quick Start
+## Quick Start
 
 The only dependency you need locally is **Docker**.
 
