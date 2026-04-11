@@ -326,42 +326,6 @@ This concept transforms the model from **pure prediction** into a **decision-sup
 
 ---
 
-# 🚀 Quick Start
-
-## Prerequisites
-
-* Python **3.10+**
-* `pip` or `conda`
-
----
-
-## Installation
-
-```bash
-git clone https://github.com/yourusername/used-car-price-prediction.git
-cd used-car-price-prediction
-pip install -r requirements.txt
-```
-
----
-
-## Run the Streamlit App
-
-```bash
-streamlit run app.py
-```
-
----
-
-## Train the Model
-
-```bash
-python train.py
-```
-
----
-
----
 
 # 📚 Theoretical Background
 
