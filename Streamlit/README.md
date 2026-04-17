@@ -58,14 +58,14 @@ docker --version
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-link>
-cd <project-folder>
+git clone https://github.com/azizjon0/CarAnalysis.git
+cd CarAnalysis/Streamlit
 ```
 
 ### 2. Build the Docker image
 
 ```bash
-docker build --no-cache -t car-price-app .
+docker build -t car-price-app .
 ```
 
 ### 3. Run the container
